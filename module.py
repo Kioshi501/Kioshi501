@@ -1,6 +1,3 @@
-# mybigmodule.py
-
-# Импорт необходимых библиотек
 from userbot import loader, utils
 from telethon import events
 from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
@@ -321,4 +318,3 @@ class MyBigModule(loader.Module):
         """Вызывается, когда клиент готов."""
         self.client = client
         self.db = db
-        # Инициализация при необходимости
