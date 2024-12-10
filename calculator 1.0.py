@@ -3,7 +3,7 @@ import re
 
 BOT_TOKEN = "TOKEN"
 
-bot = telebot.Telebot(7279451771:AAEM4wks3XvSJebuSk_6GdGH1piltTh_FBs)
+bot = telebot.Telebot(TOKEN)
 
 @bot.message_handler(commands=['add', 'subtract', 'miltiply', 'divide'])
 def calculate(message):
