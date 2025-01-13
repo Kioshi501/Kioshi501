@@ -102,7 +102,19 @@ namespace WindowsFormsApp18
                     return false;
                 }
             }
+            MessageBox.Show("Ничья, делаем рестарт.");
+            Application.Restart();
             return true;
+        }
+
+        private void Restart_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
