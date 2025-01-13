@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Text;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp18
+{
+    public partial class Form1 : Form
+    {
+        private char currentPlayer = 'X';
+        private char[] board = new char[9] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+        private bool gameOver = false;
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is Button button)
+                {
+                    button.Click += new EventHandler(button_Click);
+                }
+            }
+        }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            if (gameOver) return;
+            Button clickedButton = (Button)sender;
+            int buttonIndex = int.Parse(clickedButton.Name.Replace("button", "")) - 1;
+
+            if (board[buttonIndex] == ' ')
+            {
+                board[buttonIndex] = currentPlayer;
+                clickedButton.Text = currentPlayer.ToString();
+
+                if (CheckForWinner())
+                {
+                    labelTurn.Text = $"Игрок {currentPlayer} победил!";
+                    gameOver = true;
+                }
+                else if (IsBoardFull())
+                {
+                    labelTurn.Text = "Ничья!";
+                    gameOver = true;
+                }
+                else
+                {
+                    SwitchPlayer();
+                }
+            }
+        }
+
+        private void SwitchPlayer()
+        {
+            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            labelTurn.Text = $"Ход игрока {currentPlayer}";
+        }
+
+        private bool CheckForWinner()
+        {
+            if ((board[0] == currentPlayer && board[1] == currentPlayer && board[2] == currentPlayer) ||
+                (board[3] == currentPlayer && board[4] == currentPlayer && board[5] == currentPlayer) ||
+                (board[6] == currentPlayer && board[7] == currentPlayer && board[8] == currentPlayer))
+                return true;
+
+            if ((board[0] == currentPlayer && board[3] == currentPlayer && board[6] == currentPlayer) ||
+                (board[1] == currentPlayer && board[4] == currentPlayer && board[7] == currentPlayer) ||
+                (board[2] == currentPlayer && board[5] == currentPlayer && board[8] == currentPlayer))
+                return true;
+
+            if ((board[0] == currentPlayer && board[4] == currentPlayer && board[8] == currentPlayer) ||
+                (board[2] == currentPlayer && board[4] == currentPlayer && board[6] == currentPlayer))
+                return true;
+
+            return false;
+        }
+
+        private bool IsBoardFull()
+        {
+            foreach (char cell in board)
+            {
+                if (cell == ' ')
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+}
